@@ -1,0 +1,67 @@
+<%@ page import="java.sql.*"%>
+<html>
+<head>
+<style>
+#tb
+{
+color:red;
+}
+td
+{
+color:black;
+}
+h1
+{
+color:blue;
+}
+</style>
+
+<title>
+creating a table</title>
+</head>
+<body background="qu.jpg">
+<%
+try
+{
+String s=request.getParameter("aadhar");
+String s1=request.getParameter("mailid");
+String s2=request.getParameter("problems");
+Class.forName("com.mysql.jdbc.Driver");
+Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/project1","root","");
+Statement st=connection.createStatement();
+String query="select * from roaddata";
+ResultSet rs=st.executeQuery(query);
+out.println("<center><h1><br><br><b><u>PROBLEMS OF ROAD DEPARTMENT<b></u></center><br>");
+%>
+<table border="1" id="tb" align="center" >
+<tr>
+<th><h2>PROBLEMS</h2></th>
+<th><h2>AADHAR</h2></th>
+<th><h2>MAILID</h2></th></h1>
+</tr>
+<%
+while(rs.next())
+{%>
+<tr><td><h3><%=rs.getString(1)%></h3></td>
+<td><h3><%=rs.getString(2)%></h3></td>
+<td></h3><%=rs.getString(3)%></h3></td>
+
+<%}
+%>
+</table>
+<form action="deleteroad.jsp" method="post">
+Enter aadhar no whose problem is solved
+<input type="text" name="aadhar" value=" "><br><br>
+<input type="submit" value="solved">
+</form>
+
+<%
+}
+catch(Exception e)
+{
+out.println(e);
+}
+%>
+
+</body>
+</html>
